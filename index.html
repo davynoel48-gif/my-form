@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summit Motors - In-House Financing Application</title>
+    <style>
+        :root {
+            --primary: #1B365D;
+            --secondary: #2C3E50;
+            --bg: #F4F6F9;
+            --card-bg: #FFFFFF;
+            --text: #222222;
+            --border: #D1D5DB;
+            --focus: #2563EB;
+            --success: #059669;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 680px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+        }
+
+        .header .address {
+            font-size: 0.85rem;
+            color: #444;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .header .license {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .doc-title {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .doc-title h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.82rem;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--focus);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            background-color: #FFFFFF;
+        }
+
+        .legal-ack {
+            background-color: #F1F5F9;
+            border: 1px solid #CBD5E1;
+            padding: 12px;
+            font-size: 0.8rem;
+            color: #334155;
+            line-height: 1.4;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .btn-submit {
+            flex: 1;
+            background-color: var(--primary);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #12243E;
+        }
+
+        .btn-save {
+            flex: 1;
+            background-color: var(--success);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-save:hover {
+            background-color: #047857;
+        }
+
+        @media (max-width: 500px) {
+            .form-row, .btn-container {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="header">
+        <h1>Summit Motors, LLC</h1>
+        <div class="address">d/b/a Summit Motors Auto Sales — 4820 Woodward Ave, Detroit, Wayne County, MI 48201</div>
+        <div class="license">Michigan Dealer License No. B-084912-MI | Class B (Used Vehicle Dealer)</div>
+    </div>
+
+    <div class="doc-title">
+        <h2>IN-HOUSE FINANCING APPLICATION</h2>
+    </div>
+
+    <form id="appForm" onsubmit="event.preventDefault(); alert('Application submitted!');">
+
+        <div class="section-title">Applicant Information</div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="app_name">Full Legal Name *</label>
+                <input type="text" id="app_name" required>
+            </div>
+            <div class="form-group">
+                <label for="app_dob">Date of Birth *</label>
+                <input type="date" id="app_dob" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="app_ssn">Social Security Number *</label>
+                <input type="text" id="app_ssn" placeholder="XXX-XX-XXXX" required>
+            </div>
+            <div class="form-group">
+                <label for="app_dl">Driver's License Number / State *</label>
+                <input type="text" id="app_dl" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="app_address">Current Street Address *</label>
+            <input type="text" id="app_address" required>
+        </div>
+
+        <div class="form-group">
+            <label for="app_city_state_zip">City / State / ZIP *</label>
+            <input type="text" id="app_city_state_zip" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="app_time_addr">Time at Current Address *</label>
+                <input type="text" id="app_time_addr" placeholder="e.g. 3 years" required>
+            </div>
+            <div class="form-group">
+                <label for="app_own_rent">Own / Rent *</label>
+                <select id="app_own_rent" required>
+                    <option value="">Select</option>
+                    <option value="Own">Own</option>
+                    <option value="Rent">Rent</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="app_monthly_pmt">Monthly Housing Payment *</label>
+                <input type="text" id="app_monthly_pmt" placeholder="$" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="app_phone">Home / Cell Phone *</label>
+                <input type="tel" id="app_phone" required>
+            </div>
+            <div class="form-group">
+                <label for="app_email">Email Address *</label>
+                <input type="email" id="app_email" required>
+            </div>
+        </div>
+
+        <div class="section-title">Employment & Income</div>
+
+        <div class="form-group">
+            <label for="emp_name">Employer Name *</label>
+            <input type="text" id="emp_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="emp_address">Employer Address</label>
+            <input type="text" id="emp_address">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="emp_title">Position / Title *</label>
+                <input type="text" id="emp_title" required>
+            </div>
+            <div class="form-group">
+                <label for="emp_time">Time Employed *</label>
+                <input type="text" id="emp_time" placeholder="e.g. 2 years" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="emp_income">Gross Monthly Income *</label>
+                <input type="text" id="emp_income" placeholder="$" required>
+            </div>
+            <div class="form-group">
+                <label for="emp_other_income">Other Monthly Income (source)</label>
+                <input type="text" id="emp_other_income" placeholder="$ (Source)">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="emp_sup_phone">Supervisor Name / Phone *</label>
+                <input type="text" id="emp_sup_phone" required>
+            </div>
+            <div class="form-group">
+                <label for="emp_prev">Previous Employer (if &lt; 2 yrs)</label>
+                <input type="text" id="emp_prev">
+            </div>
+        </div>
+
+        <div class="section-title">Co-Applicant Information (If Applicable)</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="co_name">Co-Applicant Full Legal Name</label>
+                <input type="text" id="co_name">
+            </div>
+            <div class="form-group">
+                <label for="co_rel">Relationship to Applicant</label>
+                <input type="text" id="co_rel">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="co_dob">Date of Birth</label>
+                <input type="date" id="co_dob">
+            </div>
+            <div class="form-group">
+                <label for="co_ssn">Social Security Number</label>
+                <input type="text" id="co_ssn" placeholder="XXX-XX-XXXX">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="co_emp_inc">Employer / Income</label>
+                <input type="text" id="co_emp_inc">
+            </div>
+            <div class="form-group">
+                <label for="co_phone_email">Phone / Email</label>
+                <input type="text" id="co_phone_email">
+            </div>
+        </div>
+
+        <div class="section-title">Personal References</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ref1_name">Reference 1 Name *</label>
+                <input type="text" id="ref1_name" required>
+            </div>
+            <div class="form-group">
+                <label for="ref1_rel">Relationship *</label>
+                <input type="text" id="ref1_rel" required>
+            </div>
+            <div class="form-group">
+                <label for="ref1_phone">Phone Number *</label>
+                <input type="tel" id="ref1_phone" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ref2_name">Reference 2 Name *</label>
+                <input type="text" id="ref2_name" required>
+            </div>
+            <div class="form-group">
+                <label for="ref2_rel">Relationship *</label>
+                <input type="text" id="ref2_rel" required>
+            </div>
+            <div class="form-group">
+                <label for="ref2_phone">Phone Number *</label>
+                <input type="tel" id="ref2_phone" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ref3_name">Reference 3 Name</label>
+                <input type="text" id="ref3_name">
+            </div>
+            <div class="form-group">
+                <label for="ref3_rel">Relationship</label>
+                <input type="text" id="ref3_rel">
+            </div>
+            <div class="form-group">
+                <label for="ref3_phone">Phone Number</label>
+                <input type="tel" id="ref3_phone">
+            </div>
+        </div>
+
+        <div class="section-title">Vehicle Information</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="v_year">Year *</label>
+                <input type="text" id="v_year" required>
+            </div>
+            <div class="form-group">
+                <label for="v_make">Make *</label>
+                <input type="text" id="v_make" required>
+            </div>
+            <div class="form-group">
+                <label for="v_model">Model *</label>
+                <input type="text" id="v_model" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="v_vin">VIN *</label>
+            <input type="text" id="v_vin" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="v_mileage">Mileage *</label>
+                <input type="text" id="v_mileage" required>
+            </div>
+            <div class="form-group">
+                <label for="v_price">Sale Price *</label>
+                <input type="text" id="v_price" placeholder="$" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="v_trade">Trade-In Value</label>
+                <input type="text" id="v_trade" placeholder="$">
+            </div>
+            <div class="form-group">
+                <label for="v_down">Down Payment *</label>
+                <input type="text" id="v_down" placeholder="$" required>
+            </div>
+        </div>
+
+        <div class="section-title">Proposed Financing Terms</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fin_amount">Amount Financed *</label>
+                <input type="text" id="fin_amount" placeholder="$" required>
+            </div>
+            <div class="form-group">
+                <label for="fin_num_pmts">Number of Payments *</label>
+                <input type="text" id="fin_num_pmts" required>
+            </div>
+            <div class="form-group">
+                <label for="fin_freq">Payment Frequency *</label>
+                <select id="fin_freq" required>
+                    <option value="">Select</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Bi-Weekly">Bi-Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fin_pmt_amt">Payment Amount *</label>
+                <input type="text" id="fin_pmt_amt" placeholder="$" required>
+            </div>
+            <div class="form-group">
+                <label for="fin_due_date">First Payment Due Date *</label>
+                <input type="date" id="fin_due_date" required>
+            </div>
+            <div class="form-group">
+                <label for="fin_apr">Annual Percentage Rate (APR) *</label>
+                <input type="text" id="fin_apr" placeholder="%" required>
+            </div>
+        </div>
+
+        <div class="section-title">Applicant Certification &amp; Consent</div>
+
+        <div class="legal-ack">
+            By signing below, the applicant certifies that all information provided in this application is true and complete to the best of their knowledge. The applicant authorizes Summit Motors, LLC to verify employment, income, and credit history, and to obtain consumer reports in connection with this application for in-house financing.
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="sig_app">Applicant Signature (Full Legal Name) *</label>
+                <input type="text" id="sig_app" required>
+            </div>
+            <div class="form-group">
+                <label for="sig_app_date">Date *</label>
+                <input type="date" id="sig_app_date" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="sig_co">Co-Applicant Signature (if applicable)</label>
+                <input type="text" id="sig_co">
+            </div>
+            <div class="form-group">
+                <label for="sig_co_date">Date</label>
+                <input type="date" id="sig_co_date">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="sig_rep">Dealership Representative Signature *</label>
+                <input type="text" id="sig_rep" required>
+            </div>
+            <div class="form-group">
+                <label for="sig_rep_date">Date *</label>
+                <input type="date" id="sig_rep_date" required>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="submit" class="btn-submit">Submit Application</button>
+            <button type="button" class="btn-save" onclick="downloadFilledHTML()">Download & Share Form</button>
+        </div>
+    </form>
+
+    <div class="footer-note">
+        Summit Motors, LLC • 4820 Woodward Ave, Detroit, MI 48201 • Dealer License B-084912-MI
+    </div>
+</div>
+
+<script>
+  // Exports the filled form into a shareable HTML file
+  function downloadFilledHTML() {
+    document.querySelectorAll('input, select').forEach(element => {
+      if (element.tagName === 'SELECT') {
+        element.querySelectorAll('option').forEach(option => {
+          if (option.value === element.value) {
+            option.setAttribute('selected', 'selected');
+          } else {
+            option.removeAttribute('selected');
+          }
+        });
+      } else {
+        element.setAttribute('value', element.value);
+      }
+    });
+
+    const fullHTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    const blob = new Blob([fullHTML], { type: 'text/html' });
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.href = URL.createObjectURL(blob);
+    downloadAnchor.download = "Financing_Application_Filled.html";
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  }
+</script>
+
+</body>
+</html>
